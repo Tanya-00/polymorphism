@@ -3,18 +3,11 @@
 #include <vector>
 using namespace std;
 
-enum PizzaSize {
-    SMALL = 25,
-    MIDDLE = 30,
-    BIG = 35,
-    GIANT = 40
-};
-
 class Pizza {
 protected:
     string name;
     string description;
-    PizzaSize size;
+    unsigned int size;
     unsigned int price;
     unsigned int salt;
     unsigned int cheese;
@@ -22,7 +15,7 @@ public:
     virtual string getName() const = 0;
     virtual string getDescription() const = 0;
     virtual unsigned int getPrice() const = 0;
-    virtual PizzaSize getSize() const = 0;
+    virtual unsigned int getSize() const = 0;
     virtual unsigned int getSalt() const = 0;
     virtual unsigned int getCheese() const = 0;
 };
@@ -30,7 +23,7 @@ public:
 
 class Classic : public Pizza {
 public:
-    Classic(PizzaSize size, unsigned int salt, unsigned int cheese) {
+    Classic(unsigned int size, unsigned int salt, unsigned int cheese) {
         this->name = "Classic";
         this->size = size;
         this->cheese = cheese;
@@ -42,7 +35,8 @@ public:
     string getDescription() const override {
         return "scone, sauce, sausage, tomatoes, cheese";
     };
-    PizzaSize getSize() const override {
+
+    unsigned int getSize() const override {
         return size;
     }
     unsigned int getCheese() const override {
@@ -52,10 +46,10 @@ public:
         return salt;
     }
     unsigned int getPrice() const override {
-        if((size == SMALL) || (size == MIDDLE)) {
+        if((size == 25) || (size == 30)) {
             return 350 + getSize() + getCheese() * 3 + getSalt() * 1;
         }
-        else if((size == BIG) || (size == GIANT)) {
+        else if((size == 35) || (size == 40)) {
             return 400 + getSize() + getCheese() * 3 + getSalt() * 1;
         }
     }
@@ -63,7 +57,7 @@ public:
 
 class SpicyPizza : public Pizza {
 public:
-    SpicyPizza(PizzaSize size, unsigned int salt, unsigned int cheese) {
+    SpicyPizza(unsigned int size, unsigned int salt, unsigned int cheese) {
         this->name = "SpicyPizza";
         this->size = size;
         this->cheese = cheese;
@@ -75,7 +69,8 @@ public:
         string getDescription() const override {
                 return "scone, sauce, chicken, tomatoes, hot pepper, cheese";
         };
-        PizzaSize getSize() const override {
+
+        unsigned int getSize() const override {
             return size;
         }
         unsigned int getCheese() const override {
@@ -85,10 +80,10 @@ public:
                 return salt;
         }
         unsigned int getPrice() const override {
-                if((size == SMALL) || (size == MIDDLE)) {
+                if((size == 25) || (size == 30)) {
                     return 350 + getSize() + getCheese() * 3 + getSalt() * 1;
                 }
-                else if((size == BIG) || (size == GIANT)) {
+                else if((size == 35) || (size == 40)) {
                     return 400 + getSize() + getCheese() * 3 + getSalt() * 1;
                 }
         }
@@ -96,7 +91,7 @@ public:
 
 class FourCheese : public Pizza {
 public:
-    FourCheese(PizzaSize size, unsigned int salt, unsigned int cheese) {
+    FourCheese(unsigned int size, unsigned int salt, unsigned int cheese) {
         this->name = "FourCheese";
         this->size = size;
         this->cheese = cheese;
@@ -108,7 +103,7 @@ public:
     string getDescription() const override {
         return "scone, brie, mozzarella, parmesan, ricotta";
     };
-    PizzaSize getSize() const override {
+    unsigned int getSize() const override {
         return size;
     }
     unsigned int getCheese() const override {
@@ -118,10 +113,10 @@ public:
         return salt;
     }
     unsigned int getPrice() const override {
-        if((size == SMALL) || (size == MIDDLE)) {
+        if((size == 25) || (size == 30)) {
             return 350 + getSize() + getCheese() * 3 + getSalt() * 1;
         }
-        else if((size == BIG) || (size == GIANT)) {
+        else if((size == 35) || (size == 40)) {
             return 400 + getSize() + getCheese() * 3 + getSalt() * 1;
         }
     }
@@ -129,7 +124,7 @@ public:
 
 class Margarita : public Pizza {
 public:
-    Margarita(PizzaSize size, unsigned int salt, unsigned int cheese) {
+    Margarita(unsigned int size, unsigned int salt, unsigned int cheese) {
         this->name = "Margarita";
         this->size = size;
         this->cheese = cheese;
@@ -141,7 +136,7 @@ public:
     string getDescription() const override {
         return "scone, tomato sauce, mozzarella, tomato, basil";
     };
-    PizzaSize getSize() const override {
+    unsigned int getSize() const override {
         return size;
     }
     unsigned int getCheese() const override {
@@ -151,10 +146,10 @@ public:
         return salt;
     }
     unsigned int getPrice() const override {
-        if((size == SMALL) || (size == MIDDLE)) {
+        if((size == 25) || (size == 30)) {
             return 350 + getSize() + getCheese() * 3 + getSalt() * 1;
         }
-        else if((size == BIG) || (size == GIANT)) {
+        else if((size == 35) || (size == 40)) {
             return 400 + getSize() + getCheese() * 3 + getSalt() * 1;
         }
     }
@@ -184,110 +179,68 @@ public:
         }
         cout << "Final price " << eprice << endl;
     }
-    void Selection() {
-        OrderNew:
-        cout << "Menu:" << endl;
-        cout << "1. Classic - 350" << endl;
-        cout << "2. SpicyPizza - 375" << endl;
-        cout << "3. FourCheese - 350" << endl;
-        cout << "4. Margarita - 360" << endl;
+};
 
-        int choice;
-        unsigned int type = 0;
-        cin >> choice;
+int main() {
+    cout << "Menu:" << endl;
+    cout << "1. Classic - 350" << endl;
+    cout << "2. SpicyPizza - 375" << endl;
+    cout << "3. FourCheese - 350" << endl;
+    cout << "4. Margarita - 360" << endl;
 
-        switch(choice) {
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            {
-                type = choice;
-            }
-                break;
-        }
+    Order order;
 
-        PizzaSize pizzaSize;
-
-        ChooseSize:
+    cout << "Enter the number of the selected pizza" << endl;
+    int choice;
+    unsigned int size, salt, cheese;
+    cin >> choice;
+    while((choice > 0) && (choice < 5)) {
         cout << "--------------------------------------------------" << endl;
         cout << "Size of pizza:" << endl;
         cout << "1. Small - 25" << endl;
         cout << "2. Middle - 30" << endl;
         cout << "3. Big - 35" << endl;
         cout << "4. Giant - 40" << endl;
-
-        cin >> choice;
-        switch(choice) {
+        cout << "Enter the size of the selected pizza" << endl;
+        cin >> size;
+        switch(size) {
             case 1: {
-                pizzaSize = SMALL;
+                size = 25;
             }
                 break;
             case 2: {
-                pizzaSize = MIDDLE;
+                size = 30;
             }
                 break;
             case 3: {
-                pizzaSize = BIG;
+                size = 35;
             }
                 break;
             case 4: {
-                pizzaSize = GIANT;
+                size = 40;
             }
                 break;
         }
-
-        unsigned int aSalt = 0;
-        unsigned int aCheese = 0;
-
-        ChooseTopping:
-        cout << "1. Add salt" << endl;
-        cout << "2. Add cheese" << endl;
-        cout << "3. Nothing" << endl;
-
-        cin >> choice;
-        switch(choice) {
-            case 1: {
-                cout << "How much?" << endl;
-                cin >> aSalt;
-            }
-                break;
-            case 2: {
-                cout << "How much?" << endl;
-                cin >> aCheese;
-            }
-                break;
-            case 3: {
-            }
-                break;
-        }
-
-        switch(type) {
-            case 1: {
-                add(new Classic(pizzaSize, aSalt, aCheese));
-            }
-                break;
-            case 2: {
-                add(new SpicyPizza(pizzaSize, aSalt, aCheese));
-            }
-                break;
-            case 3: {
-                add(new FourCheese(pizzaSize, aSalt, aCheese));
-            }
-                break;
-            case 4: {
-                add(new Margarita(pizzaSize, aSalt, aCheese));
-            }
-                break;
-        }
+        cout << "Enter the amount of salt and cheese" << endl;
+        cin >> salt, cheese;
     }
-};
-
-int main() {
-    Order order;
-    Classic c(SMALL);
-    c.getCheese(3);
-    c.getSalt(1);
-    order.add(&c);
+    switch(choice) {
+        case 1: {
+            order.add(new Classic(size, salt, cheese));
+        }
+            break;
+        case 2: {
+            order.add(new SpicyPizza(size, salt, cheese));
+        }
+            break;
+        case 3: {
+            order.add(new FourCheese(size, salt, cheese));
+        }
+            break;
+        case 4: {
+            order.add(new Margarita(size, salt, cheese));
+        }
+            break;
+    }
     return 0;
 }
